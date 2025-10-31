@@ -1,61 +1,22 @@
-TITLE: Currency Note Authentication using OpenCV & Machine Learning
+# What I did — Currency Detection (exact steps implemented)
 
-Overview:
+This file lists only the work implemented in the notebook and code — kept short and exact.
 
-This project aims to detect whether a currency note is **real or fake** by analyzing its image using a **machine learning model** trained on statistical features. Instead of relying on watermark detection or complex hardware, 
-we use an image of the note and apply feature extraction techniques to let the model make a smart decision.
-CODE DESCRIPTION:
-Python
-OpenCV 
-Scikit-learn
+- Installed required packages used in the notebook (pandas, scikit-learn, matplotlib, seaborn, opencv-python-headless, scipy).
+- Loaded `BankNote_Authentication.csv` and inspected the data (`head()`, `columns`, cleaned column names).
+- Prepared features and label: `X = df.drop('class', axis=1)`, `y = df['class']`; printed data shape.
+- Split data into training and test sets with `train_test_split(test_size=0.2, random_state=42)`.
+- Trained a `RandomForestClassifier(n_estimators=100, random_state=42)` on the training data.
+- Predicted on the test set and printed accuracy and classification report.
+- Plotted a confusion matrix using seaborn heatmap.
+- Saved the trained model to `currency_auth_model.pkl` using `joblib` and demonstrated loading it back.
+- Implemented `extract_image_features(image)` to compute variance, skewness, kurtosis and entropy from an input image.
+- Added code to upload an image, convert it to grayscale with OpenCV, extract the four features, reshape them, and predict (Real / Fake) using the saved model.
 
-Main Use Case:
+Files referenced/produced in the project:
 
-Imagine someone is using a camera (like on a mobile device or ATM scanner) to verify a currency note in real-time. 
-Instead of expensive hardware or complex watermark readers, this approach allows for a **software-only lightweight solution.
+- `currency_detection.ipynb` — main notebook containing the code above.
+- `BankNote_Authentication.csv` — dataset used.
+- `currency_auth_model.pkl` — model saved via joblib (created by the notebook).
 
-Target Use Cases:
-* Retail point-of-sale systems
-* ATM currency validation
-* Mobile banking apps
-* Educational projects and demonstrations
-
- WORKING:
-
-1. Model Training
-   A dataset of pre-extracted statistical features is used to train a `RandomForestClassifier` with high accuracy.
-
-2. User Uploads Image
-   In the testing phase, the user uploads a photo of a currency note in Google Colab.
-
-3. Feature Extraction
-   The image is processed using OpenCV and NumPy to extract:
-   * Variance
-   * Skewness
-   * Curtosis
-   * Entropy
-
-4. Model Prediction
-   The extracted features are passed to the trained model, which returns a prediction:
-   * `1` → Real Note
-   * `0` → Fake Note
-
-5. Result Display
-   The result is printed to the console, letting the user know if the note is real or counterfeit.
-
-Future Enhancements:
-
-This is just a starting point. Here are some exciting directions this project can evolve into:
-
-Image Preprocessing Improvements: Enhance with edge detection, noise filtering, or texture analysis for better accuracy.
-Deep Learning: Replace the feature-based model with a CNN to directly classify images.
-Mobile Integration: Build an Android/iOS app using this backend for on-the-go currency verification.
-Multi-currency Support: Extend to support different types of currencies and denominations.
-Dataset Expansion: Collect real-world note images for training a more robust model.
-
-Conclusion:
-
-This project demonstrates how even basic machine learning models combined with image processing can solve real-world problems like currency authentication.
-It’s a lightweight, explainable, and practical approach that proves that AI doesn’t always need to be complex to be effective
-Perfect for students, educators, or developers looking for a computer vision + ML mini project with real-world relevance.
-
+How to reproduce (very short): open `currency_detection.ipynb` and run the cells top-to-bottom; the notebook contains the exact commands used.
